@@ -59,7 +59,6 @@ mini-project/
 ## Prerequisites
 - **Operating System**: macOS, Linux, or Windows
 - **Python**: 3.8 or higher
-- **LaTeX**: For compiling `inference.pdf` (e.g., `texlive-full`)
 - **Hardware**: Webcam (for real-time recognition), GPU/MPS (optional, for faster training)
 - **Kaggle Account**: For downloading the LFW dataset (configure `kagglehub`)
 
@@ -88,17 +87,7 @@ mini-project/
    - `kagglehub==0.3.12` (for dataset download)
    - See `requirements.txt` for the full list.
 
-4. **Install LaTeX** (for `inference.pdf`):
-   - On macOS:
-     ```bash
-     brew install texlive
-     ```
-   - On Ubuntu:
-     ```bash
-     sudo apt-get install texlive-full texlive-fonts-extra
-     ```
-
-5. **Download LFW Dataset**:
+4. **Download LFW Dataset**:
    ```bash
    python3 src/download_dataset.py
    ```
@@ -109,7 +98,7 @@ mini-project/
      ```
    - Outputs to `dataset/lfw-deepfunneled/`.
 
-6. **Download Haar Cascade**:
+5. **Download Haar Cascade**:
    - Download `haarcascade_frontalface_default.xml` from [OpenCV's GitHub](https://github.com/opencv/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml).
    - Place it in `static/`:
      ```bash

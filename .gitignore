@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+# Virtual environment
+venv/
+
+# Large datasets
+dataset/lfw-deepfunneled/
+dataset/shape_predictor_68_face_landmarks.dat
+
+# Generated files
+static/uploads/*
+embeddings.pkl
+models/siamese_model.pth
+
+# IDE files
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log

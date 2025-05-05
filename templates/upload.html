@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Verification System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #6366f1, #a855f7);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .flash-error {
+            background-color: #ef4444;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .flash-success {
+            background-color: #10b981;
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        input[type="file"]:focus,
+        input[type="text"]:focus {
+            box-shadow: 0 0 0 2px #a5b4fc;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #e0e7ff;
+            text-align: center;
+        }
+
+        footer span {
+            font-weight: 600;
+            color: #fde68a;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mx-auto p-8 max-w-2xl bg-white rounded-2xl shadow-2xl">
+        <h1 class="text-4xl font-bold text-center text-indigo-700 mb-8">Face Verification System</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% if register %}
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Register New Person</h2>
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                    <input type="text" id="name" name="name" required
+                           class="mt-1 w-full p-3 border border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div>
+                    <label for="file" class="block text-sm font-medium text-gray-700">Upload Image</label>
+                    <input type="file" id="file" name="file" accept="image/*" required
+                           class="mt-1 w-full p-3 border border-gray-300 rounded-xl">
+                </div>
+                <button type="submit"
+                        class="w-full bg-indigo-600 text-white py-3 px-6 rounded-xl hover:bg-indigo-700 transition duration-200">
+                    Register
+                </button>
+            </form>
+            <p class="mt-4 text-center">
+                <a href="{{ url_for('upload_images') }}" class="text-indigo-600 hover:underline">Back to Verification</a>
+            </p>
+        {% else %}
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">Verify Faces</h2>
+            <form method="post" enctype="multipart/form-data" class="space-y-6">
+                <div>
+                    <label for="file1" class="block text-sm font-medium text-gray-700">Image 1</label>
+                    <input type="file" id="file1" name="file1" accept="image/*" required
+                           class="mt-1 w-full p-3 border border-gray-300 rounded-xl">
+                </div>
+                <div>
+                    <label for="file2" class="block text-sm font-medium text-gray-700">Image 2</label>
+                    <input type="file" id="file2" name="file2" accept="image/*" required
+                           class="mt-1 w-full p-3 border border-gray-300 rounded-xl">
+                </div>
+                <button type="submit"
+                        class="w-full bg-indigo-600 text-white py-3 px-6 rounded-xl hover:bg-indigo-700 transition duration-200">
+                    Compare
+                </button>
+            </form>
+            <p class="mt-4 text-center">
+                <a href="{{ url_for('register') }}" class="text-indigo-600 hover:underline">Register New Person</a>
+            </p>
+        {% endif %}
+    </div>
+
+    <footer class="mt-8">
+        <p>Created by <span>Md Zohaib</span> | Project: <span>Intelligent Face Recognition System using Siamese Networks</span></p>
+    </footer>
+</body>
+</html>

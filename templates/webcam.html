@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Face Recognition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            padding: 2rem;
+        }
+
+        .webcam-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            max-width: 850px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .webcam-card img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            border-radius: 1rem;
+            border: 3px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #e0e7ff;
+        }
+
+        .footer span {
+            font-weight: 600;
+            color: #facc15;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="webcam-card">
+        <h1 class="text-4xl font-extrabold text-indigo-700 mb-8">Webcam Face Recognition</h1>
+
+        <img src="{{ url_for('video_feed') }}" alt="Webcam Feed">
+
+        <div class="mt-6 flex justify-center flex-wrap gap-4">
+            <a href="{{ url_for('upload_images') }}"
+               class="bg-indigo-600 text-white py-2 px-6 rounded-xl hover:bg-indigo-700 transition duration-200">
+                Back to Upload
+            </a>
+            <a href="{{ url_for('register') }}"
+               class="bg-purple-600 text-white py-2 px-6 rounded-xl hover:bg-purple-700 transition duration-200">
+                Register New Person
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer mt-8">
+        Created by <span>Md Zohaib</span> | Project: <em>Intelligent Face Recognition System using Siamese Networks</em>
+    </footer>
+</body>
+</html>

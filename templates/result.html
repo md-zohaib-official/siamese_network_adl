@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Verification Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page-container {
+            max-width: 950px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 1rem;
+            border: 3px solid #e5e7eb;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.03);
+        }
+
+        .result-info p {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #e0e7ff;
+        }
+
+        .footer span {
+            font-weight: 600;
+            color: #fbbf24;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="result-card">
+            <h1 class="text-4xl font-extrabold text-center text-indigo-700 mb-8">Face Verification Results</h1>
+
+            <div class="image-container">
+                <img src="{{ url_for('static', filename=img1) }}" alt="Image 1"
+                     onerror="this.src='{{ url_for('static', filename='placeholder.jpg') }}'">
+                <img src="{{ url_for('static', filename=img2) }}" alt="Image 2"
+                     onerror="this.src='{{ url_for('static', filename='placeholder.jpg') }}'">
+            </div>
+
+            <div class="result-info text-center text-gray-800">
+                <p>Distance: <span class="font-semibold text-gray-900">{{ distance }}</span></p>
+                <p>Prediction: 
+                    <span class="font-semibold" style="color: {{ '#10b981' if prediction == 'Same person' else '#ef4444' }};">
+                        {{ prediction }}
+                    </span>
+                </p>
+                <p>Closest Known Person: <span class="font-semibold text-indigo-800">{{ closest_name }}</span></p>
+            </div>
+
+            <div class="mt-8 flex justify-center flex-wrap gap-4">
+                <a href="{{ url_for('upload_images') }}"
+                   class="bg-indigo-600 text-white py-2 px-6 rounded-xl hover:bg-indigo-700 transition duration-200">
+                    Try Another Pair
+                </a>
+                <a href="{{ url_for('register') }}"
+                   class="bg-purple-600 text-white py-2 px-6 rounded-xl hover:bg-purple-700 transition duration-200">
+                    Register New Person
+                </a>
+                <a href="{{ url_for('webcam') }}"
+                   class="bg-green-600 text-white py-2 px-6 rounded-xl hover:bg-green-700 transition duration-200">
+                    Webcam Mode
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer mt-6">
+            Designed & Developed by <span>Md Zohaib</span> — 
+            <em>Intelligent Face Recognition System using Siamese Networks</em>
+        </footer>
+    </div>
+</body>
+</html>

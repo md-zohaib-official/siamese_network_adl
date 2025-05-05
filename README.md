@@ -8,26 +8,13 @@ This project implements a real-time identity verification system using a Siamese
 - **Identity Registration**: Allows users to register new faces with names for recognition.
 - **Performance**: Achieves a training loss of 0.07 (10 epochs) and a test accuracy of 78.30%.
 
-The project is developed as part of the ADL course (Semester 4) and includes a Flask web app, training/testing scripts, and an inference report (`inference.pdf`).
+This project is developed as part of the ADL course (Semester 4) at SRM University by Md Zohaib.
 
 ## Project Structure
 ```
 mini-project/
 ├── dataset/
-│   ├── lfw-deepfunneled/
-│   │   ├── lfw-deepfunneled/lfw-deepfunneled/
-│   │   │   ├── Abdullah_Gul/
-│   │   │   ├── AJ_Lamas/
-│   │   │   ├── ... (person folders)
-│   │   ├── lfw_allnames.csv
-│   │   ├── matchpairsDevTest.csv
-│   │   ├── mismatchpairsDevTest.csv
-│   │   ├── pairs.csv
-│   │   ├── ... (other CSVs)
-│   ├── shape_predictor_68_face_landmarks.dat
 │   ├── test_pairs.csv
-├── models/
-│   ├── siamese_model.pth
 ├── static/
 │   ├── haarcascade_frontalface_default.xml
 │   ├── placeholder.jpg
@@ -47,14 +34,24 @@ mini-project/
 │   ├── train.py             # Trains model
 │   ├── utils.py             # Dataset utilities
 ├── demo_prediction.png      # Demo output
-├── embeddings.pkl           # Known identities
 ├── inference.pdf            # Inference report
 ├── README.md                # This file
 ├── requirements.txt         # Dependencies
 ├── roc_curve.png            # ROC curve
 ├── sample_predictions.png   # Test predictions
-├── venv/                    # Virtual environment
+├── .gitignore               # Git ignore file
 ```
+
+## Screenshots of App
+Below are screenshots showcasing the user interface of the Flask web application:
+
+- **Upload Page**: Interface for uploading two images to compare.
+  ![Upload Page](screenshots/ss1.jpg)
+- **Result Page**: Displays comparison results with detected images.
+  ![Result Page](screenshots/ss2.jpg)
+- **Webcam Mode**: Real-time face recognition via webcam.
+  ![Webcam Mode](screenshots/ss3.jpg)
+
 
 ## Prerequisites
 - **Operating System**: macOS, Linux, or Windows
@@ -65,7 +62,7 @@ mini-project/
 ## Installation
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/your-username/intelligent-face-recognition.git
    cd mini-project
    ```
 
@@ -97,12 +94,29 @@ mini-project/
      export KAGGLE_KEY=your-api-key
      ```
    - Outputs to `dataset/lfw-deepfunneled/`.
+   - Alternatively, download manually from [LFW website](http://vis-www.cs.umass.edu/lfw/) and extract to `dataset/lfw-deepfunneled/`.
 
-5. **Download Haar Cascade**:
+5. **Download Shape Predictor**:
+   - Download `shape_predictor_68_face_landmarks.dat` from [Dlib’s source](http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2).
+   - Extract and place in `dataset/`:
+     ```bash
+     bunzip2 shape_predictor_68_face_landmarks.dat.bz2
+     mv shape_predictor_68_face_landmarks.dat dataset/
+     ```
+
+6. **Download Haar Cascade**:
    - Download `haarcascade_frontalface_default.xml` from [OpenCV's GitHub](https://github.com/opencv/opencv/blob/master/data/haarcascades/haarcascade_frontalface_default.xml).
-   - Place it in `static/`:
+   - Place in `static/`:
      ```bash
      mv haarcascade_frontalface_default.xml static/
+     ```
+
+7. **Download Trained Model**:
+   - Download `siamese_model.pth` from [Google Drive link] (replace with your link).
+   - Place in `models/`:
+     ```bash
+     mkdir -p models
+     mv siamese_model.pth models/
      ```
 
 ## Usage
@@ -135,7 +149,10 @@ mini-project/
   - **Register Identity**: Add a new face with a name (`/register`).
   - **Webcam Mode**: Real-time face recognition (`/webcam`).
 
-### 4. Demo Predictions
+### 4. View Inference Report
+- Open `inference.pdf` for a detailed project summary and results.
+
+### 5. Demo Predictions
 - Visualize predictions for sample image pairs:
   ```bash
   python3 src/demo.py
@@ -143,9 +160,9 @@ mini-project/
 - Outputs `demo_prediction.png`.
 
 ## Dataset
-- **LFW Dataset**: Contains 13,000+ images of 5,749 individuals, organized in `dataset/lfw-deepfunneled/lfw-deepfunneled/lfw-deepfunneled/`.
+- **LFW Dataset**: Contains 13,000+ images of 5,749 individuals, to be downloaded to `dataset/lfw-deepfunneled/lfw-deepfunneled/`.
 - **Preprocessing**: Images are resized to 100x100 pixels, normalized, and optionally aligned using Dlib's 68-landmark predictor (`shape_predictor_68_face_landmarks.dat`).
-- **Test Pairs**: Generated in `test_pairs.csv` for evaluation.
+- **Test Pairs**: Included in `dataset/test_pairs.csv` for evaluation.
 
 ## Model
 - **Architecture**: Siamese Network with three convolutional layers (64, 128, 256 filters) and fully connected layers producing 256-dimensional embeddings.
@@ -154,8 +171,6 @@ mini-project/
 - **Performance**: Training loss of 0.07, test accuracy of 78.30%.
 
 ## Outputs
-- `models/siamese_model.pth`: Trained model.
-- `embeddings.pkl`: Known identity embeddings.
 - `roc_curve.png`: ROC curve from testing.
 - `sample_predictions.png`: Sample test predictions.
 - `demo_prediction.png`: Demo visualization.
@@ -177,6 +192,11 @@ mini-project/
     ```bash
     chmod -R 755 static/
     ```
+  - **Images Not Displaying in result.html**:
+    - Run `app.py` from project root (`mini-project/`), not `src/`.
+    - Ensure `static/placeholder.jpg` exists.
+    - Check permissions: `chmod -R 755 static/`.
+    - Verify image URLs (e.g., `http://127.0.0.1:5000/static/uploads/detected_image.jpg`).
 
 ## Contributing
 - Fork the repository and submit pull requests for improvements.
@@ -189,4 +209,4 @@ mini-project/
 ## Acknowledgments
 - **LFW Dataset**: Provided by the University of Massachusetts.
 - **Libraries**: PyTorch, OpenCV, Flask, Dlib, and others listed in `requirements.txt`.
-- **Author**: Md Zohaib
+- **Author**: This project is made by Md Zohaib as a college project for SRM University.

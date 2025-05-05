@@ -67,7 +67,7 @@ model.eval()
 distances = []
 labels = []
 predictions = []
-threshold = 0.5  # Adjust after initial run
+threshold = 0.5
 
 with torch.no_grad():
     for img1, img2, label in tqdm(test_loader, desc="Testing"):

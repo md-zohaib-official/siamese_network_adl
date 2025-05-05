@@ -43,13 +43,7 @@ class LFWDataset(Dataset):
                     continue
                 img1_path = os.path.join(self.root_dir, person, f"{person}_{img1_num:04d}.jpg")
                 img2_path = os.path.join(self.root_dir, person, f"{person}_{img2_num:04d}.jpg")
-                # Check if images exist (comment out for debugging)
-                # if not os.path.exists(img1_path):
-                #     print(f"Skipping row {idx}: Missing image {img1_path}")
-                #     continue
-                # if not os.path.exists(img2_path):
-                #     print(f"Skipping row {idx}: Missing image {img2_path}")
-                #     continue
+ 
                 label = 1  # Same person
                 print(f"Loaded positive pair: {person}, {img1}, {img2}, Paths: {img1_path}, {img2_path}")
             elif len(non_empty) == 4:  # Negative pair (name1, imagenum1, name2, imagenum2)
@@ -66,13 +60,7 @@ class LFWDataset(Dataset):
                     continue
                 img1_path = os.path.join(self.root_dir, person1, f"{person1}_{img1_num:04d}.jpg")
                 img2_path = os.path.join(self.root_dir, person2, f"{person2}_{img2_num:04d}.jpg")
-                # Check if images exist (comment out for debugging)
-                # if not os.path.exists(img1_path):
-                #     print(f"Skipping row {idx}: Missing image {img1_path}")
-                #     continue
-                # if not os.path.exists(img2_path):
-                #     print(f"Skipping row {idx}: Missing image {img2_path}")
-                #     continue
+
                 label = 0  # Different people
                 print(f"Loaded negative pair: {person1}, {img1}, {person2}, {img2}, Paths: {img1_path}, {img2_path}")
             else:

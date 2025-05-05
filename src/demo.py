@@ -12,9 +12,9 @@ from model import SiameseNetwork
 device = torch.device('mps' if torch.backends.mps.is_available() else 'cpu')
 print(f"Using device: {device}")
 
-# Define transformations (same as train.py and test.py)
+# Transformations
 transform = transforms.Compose([
-    transforms.Resize((100, 100)),  # Adjust if train.py used different size
+    transforms.Resize((100, 100)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])
 ])
@@ -81,7 +81,7 @@ def demo_face_verification(img1_path, img2_path):
 
 # Example usage
 if __name__ == "__main__":
-    # Example image paths (replace with your own)
+    # I was testing, you can too for different and same person :) Voila by Zohaib
     img1_path = 'dataset/lfw-deepfunneled/lfw-deepfunneled/lfw-deepfunneled/Abdullah_Gul/Abdullah_Gul_0001.jpg'
     img2_path = 'dataset/lfw-deepfunneled/lfw-deepfunneled/lfw-deepfunneled/Abdullah_Gul/Abdullah_Gul_0002.jpg'  # Same person
     # img2_path = 'dataset/lfw-deepfunneled/lfw-deepfunneled/AJ_Lamas/AJ_Lamas_0001.jpg'  # Different person

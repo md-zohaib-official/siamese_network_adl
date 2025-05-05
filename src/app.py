@@ -13,7 +13,7 @@ from model import SiameseNetwork
 
 # Flask setup with explicit template and static folders
 app = Flask(__name__, template_folder='../templates', static_folder='../static')
-app.config['SECRET_KEY'] = 'your-secret-key'  # Replace with a secure key
+app.config['SECRET_KEY'] = 'zohaib_siamese'  # secure key
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -43,7 +43,7 @@ transform = transforms.Compose([
 EMBEDDINGS_FILE = 'embeddings.pkl'
 if os.path.exists(EMBEDDINGS_FILE):
     with open(EMBEDDINGS_FILE, 'rb') as f:
-        known_embeddings = pickle.load(f)  # {name: embedding}
+        known_embeddings = pickle.load(f) 
 else:
     known_embeddings = {}
 
